@@ -1,8 +1,12 @@
 package com.trackmycar.trackmycarbackend.service;
 
-import com.trackmycar.trackmycarbackend.dto.LoginResponseDTO;
+import com.trackmycar.trackmycarbackend.dto.AppUserDto;
+import com.trackmycar.trackmycarbackend.dto.LoginResponseDto;
 import com.trackmycar.trackmycarbackend.entity.AppUser;
 import com.trackmycar.trackmycarbackend.entity.Role;
+import com.trackmycar.trackmycarbackend.exception.AuthenticationFailedException;
+import com.trackmycar.trackmycarbackend.exception.InvalidInputException;
+import com.trackmycar.trackmycarbackend.exception.UserNotFoundException;
 import com.trackmycar.trackmycarbackend.repository.RoleRepository;
 import com.trackmycar.trackmycarbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,37 +46,68 @@ public class AuthenticationService {
     }
 
     public AppUser registerUser(String username, String password, String email, String name) {
+        if (username == null || username.isEmpty()) {
+            throw new InvalidInputException("Username cannot be empty");
+        }
+
+        if (password == null || password.isEmpty()) {
+            throw new InvalidInputException("Password cannot be empty");
+        }
+
+        if (password.length() < 8) {
+            throw new InvalidInputException("Password must be at least 8 characters");
+        }
+
+        if (email == null || email.isEmpty()) {
+            throw new InvalidInputException("Email cannot be empty");
+        }
+
+        if (name == null || name.isEmpty()) {
+            throw new InvalidInputException("Name cannot be empty");
+        }
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new InvalidInputException("Username is already taken");
+        }
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new InvalidInputException("Email is already taken");
+        }
+
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("USER").orElseThrow();
-
         Set<Role> authorities = new HashSet<>();
-
         authorities.add(userRole);
 
-        return userRepository.save(
+        // Convert the first character of the name to uppercase
+        String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+        AppUser user = userRepository.save(
                 new AppUser(
                         0,
                         username,
                         encodedPassword,
                         email,
-                        name,
+                        formattedName,
                         authorities)
         );
+
+        System.out.println("User " + username + " successfully created");
+
+        return user;
     }
 
-    public LoginResponseDTO loginUser(String username, String password) {
-
+    public Authentication authenticateUser(String username, String password) {
         try {
-            Authentication auth = authManager.authenticate(
+            Authentication auth =  authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
 
-            String token = tokenService.generateJwt(auth);
+            System.out.println("User " + username + " successfully authenticated");
 
-            return new LoginResponseDTO(userRepository.findByUsername(username).orElseThrow(), token);
-
+            return auth;
         } catch (AuthenticationException e) {
-            return new LoginResponseDTO(null, "");
+            throw new AuthenticationFailedException();
         }
     }
 }

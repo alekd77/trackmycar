@@ -30,10 +30,10 @@ public class TrackMyCarBackendApplication {
 			}
 
 			Role adminRole = roleRepository.save(new Role("ADMIN"));
-			roleRepository.save(new Role("USER"));
+			Role userRole = roleRepository.save(new Role("USER"));
 
-			Set<Role> roles = new HashSet<>();
-			roles.add(adminRole);
+			Set<Role> rolesAdmin = new HashSet<>();
+			rolesAdmin.add(adminRole);
 
 			AppUser admin = new AppUser(
 					1,
@@ -41,10 +41,23 @@ public class TrackMyCarBackendApplication {
 					passwordEncoder.encode("password"),
 					"admin@gmail.com",
 					"Admin",
-					roles
+					rolesAdmin
+			);
+
+			Set<Role> rolesUser = new HashSet<>();
+			rolesUser.add(userRole);
+
+			AppUser user = new AppUser(
+					2,
+					"user",
+					passwordEncoder.encode("password"),
+					"user@gmail.com",
+					"User",
+					rolesUser
 			);
 
 			userRepository.save(admin);
+			userRepository.save(user);
 		};
 	}
 

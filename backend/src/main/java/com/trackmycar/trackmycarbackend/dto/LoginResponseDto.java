@@ -1,25 +1,23 @@
 package com.trackmycar.trackmycarbackend.dto;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
-
-public class LoginResponseDTO {
-    private AppUser appUser;
+public class LoginResponseDto {
+    private AppUserDto appUser;
     private String jwt;
 
-    public LoginResponseDTO() {
+    public LoginResponseDto() {
         super();
     }
 
-    public LoginResponseDTO(AppUser appUser, String jwt) {
+    public LoginResponseDto(AppUserDto appUser, String jwt) {
         this.appUser = appUser;
         this.jwt = jwt;
     }
 
-    public AppUser getAppUser() {
+    public AppUserDto getAppUser() {
         return appUser;
     }
 
-    public void setAppUser(AppUser appUser) {
+    public void setAppUser(AppUserDto appUser) {
         this.appUser = appUser;
     }
 

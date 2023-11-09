@@ -1,15 +1,15 @@
 package com.trackmycar.trackmycarbackend.dto;
 
-public class RegistrationDTO {
+public class RegistrationDto {
     private String username;
     private String password;
     private String email;
     private String name;
 
-    public RegistrationDTO() {
+    public RegistrationDto() {
     }
 
-    public RegistrationDTO(String username,
+    public RegistrationDto(String username,
                            String password,
                            String email,
                            String name) {

@@ -1,13 +1,13 @@
 package com.trackmycar.trackmycarbackend.dto;
 
-public class LoginDTO {
+public class LoginDto {
     private String username;
     private String password;
 
-    public LoginDTO() {
+    public LoginDto() {
     }
 
-    public LoginDTO(String username, String password) {
+    public LoginDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
