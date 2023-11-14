@@ -10,13 +10,13 @@ import java.util.Objects;
 public class Role implements GrantedAuthority {
     @Id
     @SequenceGenerator(
-            name = "role_sequence",
-            sequenceName = "role_sequence",
+            name = "roles_sequence",
+            sequenceName = "roles_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "role_sequence"
+            generator = "roles_sequence"
     )
     @Column(name="role_id")
     private Integer roleId;

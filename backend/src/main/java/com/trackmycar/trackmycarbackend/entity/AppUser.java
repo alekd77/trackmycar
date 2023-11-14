@@ -13,13 +13,13 @@ import java.util.Set;
 public class AppUser implements UserDetails {
     @Id
     @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
+            name = "users_sequence",
+            sequenceName = "users_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
+            generator = "users_sequence"
     )
     @Column(name="user_id")
     private Integer userId;
@@ -33,11 +33,12 @@ public class AppUser implements UserDetails {
     @Column(nullable=false, unique=true)
     private String email;
 
+    @Column(nullable=false)
     private String name;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
-            name="user_role_junction",
+            name="users_roles_junction",
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
