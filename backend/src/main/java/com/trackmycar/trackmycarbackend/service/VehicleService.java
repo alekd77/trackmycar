@@ -9,6 +9,7 @@ import com.trackmycar.trackmycarbackend.repository.VehicleRepository;
 import com.trackmycar.trackmycarbackend.util.InputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,15 +24,16 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
+    public Set<Vehicle> getAllVehiclesByOwner(AppUser owner) {
+        return vehicleRepository.findVehiclesByOwner(owner).orElse(new HashSet<>());
+    }
+
     public Vehicle getVehicleById(Integer vehicleId) {
         return vehicleRepository
                 .findById(vehicleId)
                 .orElseThrow(() -> new VehicleNotFoundException(
-                        "Vehicle of given ID: " + vehicleId + " not found"));
-    }
-
-    public Set<Vehicle> getAllVehiclesByOwner(AppUser owner) {
-        return vehicleRepository.findVehiclesByOwner(owner).orElse(new HashSet<>());
+                        "Vehicle of given ID: " + vehicleId + " not found"
+                ));
     }
 
     public Vehicle addVehicle(AppUser owner,
@@ -65,6 +67,7 @@ public class VehicleService {
         }
     }
 
+    @Transactional
     public Vehicle updateVehicle(Vehicle vehicle,
                                  String name,
                                  String description,

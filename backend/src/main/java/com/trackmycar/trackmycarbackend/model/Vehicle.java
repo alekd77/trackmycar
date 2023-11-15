@@ -19,7 +19,7 @@ public class Vehicle {
     private Integer vehicleId;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name="user_id", nullable=false)
     private AppUser owner;
 
     @Column(nullable=false)
@@ -27,7 +27,7 @@ public class Vehicle {
 
     private String description;
 
-    @Column(name="marker_hex_color", length = 7)
+    @Column(name="marker_hex_color", length=7)
     private String markerHexColor;
 
     public Vehicle() {
@@ -39,6 +39,7 @@ public class Vehicle {
                    String name,
                    String description,
                    String markerHexColor) {
+        super();
         this.vehicleId = vehicleId;
         this.owner = owner;
         this.name = name;

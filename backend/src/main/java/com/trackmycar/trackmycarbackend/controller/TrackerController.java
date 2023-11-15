@@ -1,13 +1,13 @@
 package com.trackmycar.trackmycarbackend.controller;
 
 import com.trackmycar.trackmycarbackend.dto.ApiExceptionDto;
-import com.trackmycar.trackmycarbackend.dto.VehicleDto;
-import com.trackmycar.trackmycarbackend.model.AppUser;
-import com.trackmycar.trackmycarbackend.model.Vehicle;
+import com.trackmycar.trackmycarbackend.dto.TrackerDto;
 import com.trackmycar.trackmycarbackend.exception.*;
+import com.trackmycar.trackmycarbackend.model.AppUser;
+import com.trackmycar.trackmycarbackend.model.Tracker;
 import com.trackmycar.trackmycarbackend.service.TokenService;
+import com.trackmycar.trackmycarbackend.service.TrackerService;
 import com.trackmycar.trackmycarbackend.service.UserService;
-import com.trackmycar.trackmycarbackend.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,106 +18,106 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/vehicles")
+@RequestMapping(path = "/trackers")
 @CrossOrigin("*")
-public class VehicleController {
+public class TrackerController {
     private final TokenService tokenService;
     private final UserService userService;
-    private final VehicleService vehicleService;
+    private final TrackerService trackerService;
 
     @Autowired
-    public VehicleController(TokenService tokenService,
+    public TrackerController(TokenService tokenService,
                              UserService userService,
-                             VehicleService vehicleService) {
+                             TrackerService trackerService) {
         this.tokenService = tokenService;
         this.userService = userService;
-        this.vehicleService = vehicleService;
+        this.trackerService = trackerService;
     }
 
     @GetMapping
-    public Set<VehicleDto> getUserVehicles(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public Set<TrackerDto> getUserTrackers(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         String username = tokenService.getUsernameFromToken(token);
         AppUser user = userService.getUserByUsername(username);
-        Set<Vehicle> vehicles = vehicleService.getAllVehiclesByOwner(user);
+        Set<Tracker> trackers = trackerService.getAllTrackersByOwner(user);
 
-        return vehicles
+        return trackers
                 .stream()
-                .map(VehicleDto::new)
+                .map(TrackerDto::new)
                 .collect(Collectors.toSet());
     }
 
-    @GetMapping(path="/{vehicleId}")
-    public VehicleDto getVehicleById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
-                                     @PathVariable("vehicleId") Integer vehicleId) {
+    @GetMapping(path="/{trackerId}")
+    public TrackerDto getTrackerById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+                                     @PathVariable("trackerId") Integer trackerId) {
         String username = tokenService.getUsernameFromToken(token);
         AppUser user = userService.getUserByUsername(username);
-        Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+        Tracker tracker = trackerService.getTrackerById(trackerId);
 
         // TODO: Fix resource access authorization
         // Simple authorization checking based on the ownership of the vehicle
-        if (!vehicle.getOwner().getUsername().equals(user.getUsername())) {
+        if (!tracker.getOwner().getUsername().equals(user.getUsername())) {
             throw new AuthorizationFailedException();
         }
 
-        return new VehicleDto(vehicle);
+        return new TrackerDto(tracker);
     }
 
     @PostMapping
-    public VehicleDto addNewVehicle(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
-                                    @RequestBody VehicleDto body) {
+    public TrackerDto addNewTracker(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+                                    @RequestBody TrackerDto body) {
         String username = tokenService.getUsernameFromToken(token);
         AppUser user = userService.getUserByUsername(username);
 
-        Vehicle vehicle = vehicleService.addVehicle(
+        Tracker tracker = trackerService.addTracker(
                 user,
                 body.getName(),
                 body.getDescription(),
-                body.getMarkerHexColor()
+                body.getImei()
         );
 
-        return new VehicleDto(vehicle);
+        return new TrackerDto(tracker);
     }
 
-    @PutMapping(path="/{vehicleId}")
-    public VehicleDto updateVehicle(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
-                                    @PathVariable("vehicleId") Integer vehicleId,
-                                    @RequestBody VehicleDto body) {
+    @PutMapping(path="/{trackerId}")
+    public TrackerDto updateTracker(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+                                    @PathVariable("trackerId") Integer trackerId,
+                                    @RequestBody TrackerDto body) {
         String username = tokenService.getUsernameFromToken(token);
         AppUser user = userService.getUserByUsername(username);
-        Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+        Tracker tracker = trackerService.getTrackerById(trackerId);
 
         // TODO: Fix resource access authorization
         // Simple authorization checking based on the ownership of the vehicle
-        if (!vehicle.getOwner().getUsername().equals(user.getUsername())) {
+        if (!tracker.getOwner().getUsername().equals(user.getUsername())) {
             throw new AuthorizationFailedException();
         }
 
-        Vehicle updatedVehicle = vehicleService.updateVehicle(
-                vehicle,
+        Tracker updatedTracker = trackerService.updateTracker(
+                tracker,
                 body.getName(),
                 body.getDescription(),
-                body.getMarkerHexColor()
+                body.getImei()
         );
 
-        return new VehicleDto(updatedVehicle);
+        return new TrackerDto(updatedTracker);
     }
 
-    @DeleteMapping(path="/{vehicleId}")
-    public ResponseEntity<String> deleteVehicle(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
-                                                @PathVariable("vehicleId") Integer vehicleId) {
+    @DeleteMapping(path="/{trackerId}")
+    public ResponseEntity<String> deleteTracker(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+                                                @PathVariable("trackerId") Integer trackerId) {
         String username = tokenService.getUsernameFromToken(token);
         AppUser user = userService.getUserByUsername(username);
-        Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+        Tracker tracker = trackerService.getTrackerById(trackerId);
 
         // TODO: Fix resource access authorization
         // Simple authorization checking based on the ownership of the vehicle
-        if (!vehicle.getOwner().getUsername().equals(user.getUsername())) {
+        if (!tracker.getOwner().getUsername().equals(user.getUsername())) {
             throw new AuthorizationFailedException();
         }
 
-        vehicleService.deleteVehicle(vehicle);
+        trackerService.deleteTracker(tracker);
 
-        return new ResponseEntity<String>("Vehicle has been deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Tracker has been deleted", HttpStatus.OK);
     }
 
     @ExceptionHandler({AuthorizationFailedException.class})
@@ -125,8 +125,8 @@ public class VehicleController {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 
-    @ExceptionHandler({VehicleRegistrationFailedException.class})
-    public ResponseEntity<ApiExceptionDto> handleVehicleRegistrationFailed(VehicleRegistrationFailedException ex) {
+    @ExceptionHandler({TrackerRegistrationFailedException.class})
+    public ResponseEntity<ApiExceptionDto> handleTrackerRegistrationFailed(TrackerRegistrationFailedException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 
@@ -135,8 +135,8 @@ public class VehicleController {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 
-    @ExceptionHandler({VehicleNotFoundException.class})
-    public ResponseEntity<ApiExceptionDto> handleVehicleNotFound(VehicleNotFoundException ex) {
+    @ExceptionHandler({TrackerNotFoundException.class})
+    public ResponseEntity<ApiExceptionDto> handleTrackerNotFound(TrackerNotFoundException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 

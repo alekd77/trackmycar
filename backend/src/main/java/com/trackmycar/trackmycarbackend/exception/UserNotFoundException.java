@@ -9,6 +9,5 @@ public class UserNotFoundException extends ApiException {
 
     public UserNotFoundException(String debugMessage) {
         super("User not found", HttpStatus.NOT_FOUND, debugMessage);
-
     }
 }
