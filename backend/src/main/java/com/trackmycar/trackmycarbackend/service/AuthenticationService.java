@@ -1,12 +1,9 @@
 package com.trackmycar.trackmycarbackend.service;
 
-import com.trackmycar.trackmycarbackend.dto.AppUserDto;
-import com.trackmycar.trackmycarbackend.dto.LoginResponseDto;
-import com.trackmycar.trackmycarbackend.entity.AppUser;
-import com.trackmycar.trackmycarbackend.entity.Role;
+import com.trackmycar.trackmycarbackend.model.AppUser;
+import com.trackmycar.trackmycarbackend.model.Role;
 import com.trackmycar.trackmycarbackend.exception.AuthenticationFailedException;
 import com.trackmycar.trackmycarbackend.exception.InvalidInputException;
-import com.trackmycar.trackmycarbackend.exception.UserNotFoundException;
 import com.trackmycar.trackmycarbackend.repository.RoleRepository;
 import com.trackmycar.trackmycarbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

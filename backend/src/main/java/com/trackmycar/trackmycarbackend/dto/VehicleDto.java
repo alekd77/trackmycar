@@ -1,6 +1,6 @@
 package com.trackmycar.trackmycarbackend.dto;
 
-import com.trackmycar.trackmycarbackend.entity.Vehicle;
+import com.trackmycar.trackmycarbackend.model.Vehicle;
 
 public class VehicleDto {
     private Integer vehicleId;

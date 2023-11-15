@@ -1,7 +1,7 @@
 package com.trackmycar.trackmycarbackend.repository;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
-import com.trackmycar.trackmycarbackend.entity.Vehicle;
+import com.trackmycar.trackmycarbackend.model.AppUser;
+import com.trackmycar.trackmycarbackend.model.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

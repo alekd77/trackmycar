@@ -2,9 +2,8 @@ package com.trackmycar.trackmycarbackend.controller;
 
 import com.trackmycar.trackmycarbackend.dto.ApiExceptionDto;
 import com.trackmycar.trackmycarbackend.dto.VehicleDto;
-import com.trackmycar.trackmycarbackend.entity.AppUser;
-import com.trackmycar.trackmycarbackend.entity.Role;
-import com.trackmycar.trackmycarbackend.entity.Vehicle;
+import com.trackmycar.trackmycarbackend.model.AppUser;
+import com.trackmycar.trackmycarbackend.model.Vehicle;
 import com.trackmycar.trackmycarbackend.exception.*;
 import com.trackmycar.trackmycarbackend.service.TokenService;
 import com.trackmycar.trackmycarbackend.service.UserService;

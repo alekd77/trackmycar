@@ -1,7 +1,7 @@
 package com.trackmycar.trackmycarbackend;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
-import com.trackmycar.trackmycarbackend.entity.Role;
+import com.trackmycar.trackmycarbackend.model.AppUser;
+import com.trackmycar.trackmycarbackend.model.Role;
 import com.trackmycar.trackmycarbackend.repository.RoleRepository;
 import com.trackmycar.trackmycarbackend.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;

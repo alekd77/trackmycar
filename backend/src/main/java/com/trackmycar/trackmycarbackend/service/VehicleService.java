@@ -1,7 +1,7 @@
 package com.trackmycar.trackmycarbackend.service;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
-import com.trackmycar.trackmycarbackend.entity.Vehicle;
+import com.trackmycar.trackmycarbackend.model.AppUser;
+import com.trackmycar.trackmycarbackend.model.Vehicle;
 import com.trackmycar.trackmycarbackend.exception.InvalidInputException;
 import com.trackmycar.trackmycarbackend.exception.VehicleNotFoundException;
 import com.trackmycar.trackmycarbackend.exception.VehicleRegistrationFailedException;
@@ -72,7 +72,7 @@ public class VehicleService {
 
         if (name != null && !name.isEmpty()
                 && !Objects.equals(name, vehicle.getName())) {
-            if (vehicleRepository.findByOwnerAndName(vehicle.getOwner(), name).isEmpty()) {
+            if (vehicleRepository.findByOwnerAndName(vehicle.getOwner(), name).isPresent()) {
                 throw new InvalidInputException("Vehicle of given name: " + name + " already exists");
             }
 

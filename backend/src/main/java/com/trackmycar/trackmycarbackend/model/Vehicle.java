@@ -1,4 +1,4 @@
-package com.trackmycar.trackmycarbackend.entity;
+package com.trackmycar.trackmycarbackend.model;
 
 import jakarta.persistence.*;
 

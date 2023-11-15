@@ -1,6 +1,6 @@
 package com.trackmycar.trackmycarbackend.dto;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
+import com.trackmycar.trackmycarbackend.model.AppUser;
 
 public class AppUserDto {
     private Integer userId;

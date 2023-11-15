@@ -1,7 +1,7 @@
 package com.trackmycar.trackmycarbackend.controller;
 
 import com.trackmycar.trackmycarbackend.dto.*;
-import com.trackmycar.trackmycarbackend.entity.AppUser;
+import com.trackmycar.trackmycarbackend.model.AppUser;
 import com.trackmycar.trackmycarbackend.exception.AuthenticationFailedException;
 import com.trackmycar.trackmycarbackend.exception.InvalidInputException;
 import com.trackmycar.trackmycarbackend.exception.UserNotFoundException;

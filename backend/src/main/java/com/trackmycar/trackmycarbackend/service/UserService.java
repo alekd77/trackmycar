@@ -1,6 +1,6 @@
 package com.trackmycar.trackmycarbackend.service;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
+import com.trackmycar.trackmycarbackend.model.AppUser;
 import com.trackmycar.trackmycarbackend.exception.UserNotFoundException;
 import com.trackmycar.trackmycarbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

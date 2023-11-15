@@ -1,6 +1,6 @@
 package com.trackmycar.trackmycarbackend.controller;
 
-import com.trackmycar.trackmycarbackend.entity.AppUser;
+import com.trackmycar.trackmycarbackend.model.AppUser;
 import com.trackmycar.trackmycarbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
