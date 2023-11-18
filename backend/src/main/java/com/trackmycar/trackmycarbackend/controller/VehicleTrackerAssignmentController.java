@@ -1,7 +1,8 @@
 package com.trackmycar.trackmycarbackend.controller;
 
+import com.trackmycar.trackmycarbackend.dto.ApiExceptionDto;
 import com.trackmycar.trackmycarbackend.dto.VehicleTrackerAssignmentDto;
-import com.trackmycar.trackmycarbackend.exception.AuthorizationFailedException;
+import com.trackmycar.trackmycarbackend.exception.*;
 import com.trackmycar.trackmycarbackend.model.AppUser;
 import com.trackmycar.trackmycarbackend.model.VehicleTrackerAssignment;
 import com.trackmycar.trackmycarbackend.service.TokenService;
@@ -155,5 +156,17 @@ public class VehicleTrackerAssignmentController {
         assignmentService.deleteAssignment(assignment);
 
         return new ResponseEntity<String>("Assignment has been deleted", HttpStatus.OK);
+    }
+
+    @ExceptionHandler({VehicleTrackerAssignmentNotFoundException.class})
+    public ResponseEntity<ApiExceptionDto> handleVehicleTrackerAssignmentNotFound(
+            VehicleTrackerAssignmentNotFoundException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
+    }
+
+    @ExceptionHandler({VehicleTrackerAssignmentRegistrationFailedException.class})
+    public ResponseEntity<ApiExceptionDto> handleVehicleTrackerAssignmentRegistrationFailed(
+            VehicleTrackerAssignmentRegistrationFailedException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 }

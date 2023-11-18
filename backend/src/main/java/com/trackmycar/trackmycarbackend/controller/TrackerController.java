@@ -120,28 +120,13 @@ public class TrackerController {
         return new ResponseEntity<>("Tracker has been deleted", HttpStatus.OK);
     }
 
-    @ExceptionHandler({AuthorizationFailedException.class})
-    public ResponseEntity<ApiExceptionDto> handleAuthorizationFailed(AuthorizationFailedException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
     @ExceptionHandler({TrackerRegistrationFailedException.class})
     public ResponseEntity<ApiExceptionDto> handleTrackerRegistrationFailed(TrackerRegistrationFailedException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 
-    @ExceptionHandler({UserNotFoundException.class})
-    public ResponseEntity<ApiExceptionDto> handleUserNotFound(UserNotFoundException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
     @ExceptionHandler({TrackerNotFoundException.class})
     public ResponseEntity<ApiExceptionDto> handleTrackerNotFound(TrackerNotFoundException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
-    @ExceptionHandler({InvalidInputException.class})
-    public ResponseEntity<ApiExceptionDto> handleInvalidInput(InvalidInputException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 }

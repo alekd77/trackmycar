@@ -2,6 +2,8 @@ package com.trackmycar.trackmycarbackend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="vehicles")
 public class Vehicle {
@@ -22,6 +24,9 @@ public class Vehicle {
     @JoinColumn(name="user_id", nullable=false)
     private AppUser owner;
 
+    @OneToMany(mappedBy="vehicle")
+    private List<VehicleTrackerAssignment> assignments;
+
     @Column(nullable=false)
     private String name;
 
@@ -36,12 +41,14 @@ public class Vehicle {
 
     public Vehicle(Integer vehicleId,
                    AppUser owner,
+                   List<VehicleTrackerAssignment> assignments,
                    String name,
                    String description,
                    String markerHexColor) {
         super();
         this.vehicleId = vehicleId;
         this.owner = owner;
+        this.assignments = assignments;
         this.name = name;
         this.description = description;
         this.markerHexColor = markerHexColor;
@@ -61,6 +68,14 @@ public class Vehicle {
 
     public void setOwner(AppUser owner) {
         this.owner = owner;
+    }
+
+    public List<VehicleTrackerAssignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<VehicleTrackerAssignment> assignments) {
+        this.assignments = assignments;
     }
 
     public String getName() {
@@ -92,6 +107,7 @@ public class Vehicle {
         return "Vehicle{" +
                 "vehicleId=" + vehicleId +
                 ", owner=" + owner +
+                ", assignments=" + assignments +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", markerHexColor='" + markerHexColor + '\'' +

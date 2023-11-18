@@ -120,28 +120,13 @@ public class VehicleController {
         return new ResponseEntity<String>("Vehicle has been deleted", HttpStatus.OK);
     }
 
-    @ExceptionHandler({AuthorizationFailedException.class})
-    public ResponseEntity<ApiExceptionDto> handleAuthorizationFailed(AuthorizationFailedException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
-    @ExceptionHandler({VehicleRegistrationFailedException.class})
-    public ResponseEntity<ApiExceptionDto> handleVehicleRegistrationFailed(VehicleRegistrationFailedException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
-    @ExceptionHandler({UserNotFoundException.class})
-    public ResponseEntity<ApiExceptionDto> handleUserNotFound(UserNotFoundException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
     @ExceptionHandler({VehicleNotFoundException.class})
     public ResponseEntity<ApiExceptionDto> handleVehicleNotFound(VehicleNotFoundException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 
-    @ExceptionHandler({InvalidInputException.class})
-    public ResponseEntity<ApiExceptionDto> handleInvalidInput(InvalidInputException ex) {
+    @ExceptionHandler({VehicleRegistrationFailedException.class})
+    public ResponseEntity<ApiExceptionDto> handleVehicleRegistrationFailed(VehicleRegistrationFailedException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 }

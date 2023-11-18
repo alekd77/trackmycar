@@ -53,19 +53,4 @@ public class AuthenticationController {
 
         return new LoginResponseDto(new AppUserDto(user), token);
     }
-
-    @ExceptionHandler({AuthenticationFailedException.class})
-    public ResponseEntity<ApiExceptionDto> handleAuthenticationFailed(AuthenticationFailedException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
-    @ExceptionHandler({UserNotFoundException.class})
-    public ResponseEntity<ApiExceptionDto> handleUserNotFound(UserNotFoundException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
-
-    @ExceptionHandler({InvalidInputException.class})
-    public ResponseEntity<ApiExceptionDto> handleInvalidInput(InvalidInputException ex) {
-        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
-    }
 }
