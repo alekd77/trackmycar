@@ -5,6 +5,7 @@ import com.trackmycar.trackmycarbackend.dto.TrackerDto;
 import com.trackmycar.trackmycarbackend.exception.*;
 import com.trackmycar.trackmycarbackend.model.AppUser;
 import com.trackmycar.trackmycarbackend.model.Tracker;
+import com.trackmycar.trackmycarbackend.service.AuthorizationService;
 import com.trackmycar.trackmycarbackend.service.TokenService;
 import com.trackmycar.trackmycarbackend.service.TrackerService;
 import com.trackmycar.trackmycarbackend.service.UserService;
@@ -24,14 +25,17 @@ public class TrackerController {
     private final TokenService tokenService;
     private final UserService userService;
     private final TrackerService trackerService;
+    private final AuthorizationService authorizationService;
 
     @Autowired
     public TrackerController(TokenService tokenService,
                              UserService userService,
-                             TrackerService trackerService) {
+                             TrackerService trackerService,
+                             AuthorizationService authorizationService) {
         this.tokenService = tokenService;
         this.userService = userService;
         this.trackerService = trackerService;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping
@@ -53,11 +57,7 @@ public class TrackerController {
         AppUser user = userService.getUserByUsername(username);
         Tracker tracker = trackerService.getTrackerById(trackerId);
 
-        // TODO: Fix resource access authorization
-        // Simple authorization checking based on the ownership of the vehicle
-        if (!tracker.getOwner().getUsername().equals(user.getUsername())) {
-            throw new AuthorizationFailedException();
-        }
+        authorizationService.checkResourceAccessAuthorization(tracker, user, Tracker::getOwner);
 
         return new TrackerDto(tracker);
     }
@@ -86,11 +86,7 @@ public class TrackerController {
         AppUser user = userService.getUserByUsername(username);
         Tracker tracker = trackerService.getTrackerById(trackerId);
 
-        // TODO: Fix resource access authorization
-        // Simple authorization checking based on the ownership of the vehicle
-        if (!tracker.getOwner().getUsername().equals(user.getUsername())) {
-            throw new AuthorizationFailedException();
-        }
+        authorizationService.checkResourceAccessAuthorization(tracker, user, Tracker::getOwner);
 
         Tracker updatedTracker = trackerService.updateTracker(
                 tracker,
@@ -109,11 +105,7 @@ public class TrackerController {
         AppUser user = userService.getUserByUsername(username);
         Tracker tracker = trackerService.getTrackerById(trackerId);
 
-        // TODO: Fix resource access authorization
-        // Simple authorization checking based on the ownership of the vehicle
-        if (!tracker.getOwner().getUsername().equals(user.getUsername())) {
-            throw new AuthorizationFailedException();
-        }
+        authorizationService.checkResourceAccessAuthorization(tracker, user, Tracker::getOwner);
 
         trackerService.deleteTracker(tracker);
 

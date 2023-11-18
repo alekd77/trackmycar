@@ -5,6 +5,7 @@ import com.trackmycar.trackmycarbackend.dto.VehicleDto;
 import com.trackmycar.trackmycarbackend.model.AppUser;
 import com.trackmycar.trackmycarbackend.model.Vehicle;
 import com.trackmycar.trackmycarbackend.exception.*;
+import com.trackmycar.trackmycarbackend.service.AuthorizationService;
 import com.trackmycar.trackmycarbackend.service.TokenService;
 import com.trackmycar.trackmycarbackend.service.UserService;
 import com.trackmycar.trackmycarbackend.service.VehicleService;
@@ -24,14 +25,17 @@ public class VehicleController {
     private final TokenService tokenService;
     private final UserService userService;
     private final VehicleService vehicleService;
+    private final AuthorizationService authorizationService;
 
     @Autowired
     public VehicleController(TokenService tokenService,
                              UserService userService,
-                             VehicleService vehicleService) {
+                             VehicleService vehicleService,
+                             AuthorizationService authorizationService) {
         this.tokenService = tokenService;
         this.userService = userService;
         this.vehicleService = vehicleService;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping
@@ -53,11 +57,7 @@ public class VehicleController {
         AppUser user = userService.getUserByUsername(username);
         Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
 
-        // TODO: Fix resource access authorization
-        // Simple authorization checking based on the ownership of the vehicle
-        if (!vehicle.getOwner().getUsername().equals(user.getUsername())) {
-            throw new AuthorizationFailedException();
-        }
+        authorizationService.checkResourceAccessAuthorization(vehicle, user, Vehicle::getOwner);
 
         return new VehicleDto(vehicle);
     }
@@ -86,11 +86,7 @@ public class VehicleController {
         AppUser user = userService.getUserByUsername(username);
         Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
 
-        // TODO: Fix resource access authorization
-        // Simple authorization checking based on the ownership of the vehicle
-        if (!vehicle.getOwner().getUsername().equals(user.getUsername())) {
-            throw new AuthorizationFailedException();
-        }
+        authorizationService.checkResourceAccessAuthorization(vehicle, user, Vehicle::getOwner);
 
         Vehicle updatedVehicle = vehicleService.updateVehicle(
                 vehicle,
@@ -109,11 +105,7 @@ public class VehicleController {
         AppUser user = userService.getUserByUsername(username);
         Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
 
-        // TODO: Fix resource access authorization
-        // Simple authorization checking based on the ownership of the vehicle
-        if (!vehicle.getOwner().getUsername().equals(user.getUsername())) {
-            throw new AuthorizationFailedException();
-        }
+        authorizationService.checkResourceAccessAuthorization(vehicle, user, Vehicle::getOwner);
 
         vehicleService.deleteVehicle(vehicle);
 

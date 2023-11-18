@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler({AuthenticationFailedException.class})
+    public ResponseEntity<ApiExceptionDto> handleAuthenticationFailed(AuthenticationFailedException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
+    }
+
     @ExceptionHandler({AuthorizationFailedException.class})
     public ResponseEntity<ApiExceptionDto> handleAuthorizationFailed(AuthorizationFailedException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
