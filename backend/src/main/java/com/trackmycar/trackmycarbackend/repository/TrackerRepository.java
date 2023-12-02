@@ -10,5 +10,7 @@ import java.util.Set;
 public interface TrackerRepository extends JpaRepository<Tracker, Integer> {
     Optional<Set<Tracker>> findTrackersByOwner(AppUser owner);
 
+    Optional<Tracker> findByImei(String imei);
+
     Optional<Tracker> findByOwnerAndName(AppUser owner, String name);
 }
