@@ -38,14 +38,6 @@ public class TrackerService {
                 ));
     }
 
-    public Tracker getTrackerByImei(String imei) {
-        return trackerRepository
-                .findByImei(imei)
-                .orElseThrow(() -> new TrackerNotFoundException(
-                        "Tracker of given IMEI: " + imei + " not found"
-                ));
-    }
-
     public Tracker addTracker(AppUser owner,
                               String name,
                               String description,
