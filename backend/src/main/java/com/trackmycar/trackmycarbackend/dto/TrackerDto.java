@@ -9,7 +9,6 @@ public class TrackerDto {
     private String description;
     private String status;
     private String imei;
-    private Integer currentBatteryLevel;
 
     public TrackerDto() {
     }
@@ -19,15 +18,13 @@ public class TrackerDto {
                       String name,
                       String description,
                       String status,
-                      String imei,
-                      Integer currentBatteryLevel) {
+                      String imei) {
         this.trackerId = trackerId;
         this.owner = owner;
         this.name = name;
         this.description = description;
         this.status = status;
         this.imei = imei;
-        this.currentBatteryLevel = currentBatteryLevel;
     }
 
     public TrackerDto(Tracker tracker) {
@@ -37,7 +34,6 @@ public class TrackerDto {
         this.description = tracker.getDescription();
         this.status = tracker.getStatus().toString();
         this.imei = tracker.getImei();
-        this.currentBatteryLevel = tracker.getCurrentBatteryLevel();
     }
 
     public Integer getTrackerId() {
@@ -86,13 +82,5 @@ public class TrackerDto {
 
     public void setImei(String imei) {
         this.imei = imei;
-    }
-
-    public Integer getCurrentBatteryLevel() {
-        return currentBatteryLevel;
-    }
-
-    public void setCurrentBatteryLevel(Integer currentBatteryLevel) {
-        this.currentBatteryLevel = currentBatteryLevel;
     }
 }

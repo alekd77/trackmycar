@@ -33,9 +33,6 @@ public class Tracker {
     @Column(length=15)
     private String imei;
 
-    @Column(name="current_battery_level")
-    private Integer currentBatteryLevel;
-
     public Tracker() {
         super();
     }
@@ -45,15 +42,13 @@ public class Tracker {
                    String name,
                    String description,
                    TrackerStatus status,
-                   String imei,
-                   Integer currentBatteryLevel) {
+                   String imei) {
         this.trackerId = trackerId;
         this.owner = owner;
         this.name = name;
         this.description = description;
         this.status = status;
         this.imei = imei;
-        this.currentBatteryLevel = currentBatteryLevel;
     }
 
     public Integer getTrackerId() {
@@ -104,24 +99,15 @@ public class Tracker {
         this.imei = imei;
     }
 
-    public Integer getCurrentBatteryLevel() {
-        return currentBatteryLevel;
-    }
-
-    public void setCurrentBatteryLevel(Integer currentBatteryLevel) {
-        this.currentBatteryLevel = currentBatteryLevel;
-    }
-
     @Override
     public String toString() {
         return "Tracker{" +
                 "trackerId=" + trackerId +
-                ", owner=" + owner +
+                ", owner=" + owner + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", status=" + status +
-                ", imei='" + imei + '\'' +
-                ", currentBatteryLevel=" + currentBatteryLevel +
+                ", status=" + status + '\'' +
+                ", imei='" + imei +
                 '}';
     }
 }
