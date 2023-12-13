@@ -3,6 +3,7 @@ package com.trackmycar.trackmycarbackend.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name="vehicle_tracker_assignments")
@@ -128,6 +129,28 @@ public class VehicleTrackerAssignment {
 
     public void setAssignmentActive(boolean assignmentActive) {
         isAssignmentActive = assignmentActive;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VehicleTrackerAssignment that = (VehicleTrackerAssignment) o;
+        return isAssignmentActive == that.isAssignmentActive &&
+                Objects.equals(vehicleTrackerAssignmentId, that.vehicleTrackerAssignmentId) &&
+                Objects.equals(owner, that.owner) &&
+                Objects.equals(vehicle, that.vehicle) &&
+                Objects.equals(tracker, that.tracker) &&
+                Objects.equals(lastPosTimestamp, that.lastPosTimestamp) &&
+                Objects.equals(lastPosLatitude, that.lastPosLatitude) &&
+                Objects.equals(lastPosLongitude, that.lastPosLongitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicleTrackerAssignmentId, owner, vehicle,
+                tracker, lastPosTimestamp, lastPosLatitude,
+                lastPosLongitude, isAssignmentActive);
     }
 
     @Override

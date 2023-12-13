@@ -8,7 +8,9 @@ import com.trackmycar.trackmycarbackend.repository.VehicleRepository;
 import com.trackmycar.trackmycarbackend.repository.VehicleTrackerAssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -105,6 +107,14 @@ public class VehicleTrackerAssignmentService {
                 );
     }
 
+    public VehicleTrackerAssignment getActiveAssignmentByTracker(Tracker tracker) {
+        return vehicleTrackerAssignmentRepository
+                .findByTrackerAndIsAssignmentActiveTrue(tracker)
+                .orElseThrow(() -> new VehicleTrackerAssignmentNotFoundException(
+                        "No assignment found for tracker with ID: " + tracker.getTrackerId())
+                );
+    }
+
     public VehicleTrackerAssignment getActiveAssignmentByTrackerId(Integer trackerId) {
         return vehicleTrackerAssignmentRepository
                 .findByTrackerAndIsAssignmentActiveTrue(
@@ -118,5 +128,16 @@ public class VehicleTrackerAssignmentService {
         VehicleTrackerAssignment assignment = getAssignmentById(assignmentId);
         assignment.setAssignmentActive(false);
         return vehicleTrackerAssignmentRepository.save(assignment);
+    }
+
+    @Transactional
+    public void updateLastPosition(VehicleTrackerAssignment assignment,
+                                   LocalDateTime timestamp,
+                                   Double latitude,
+                                   Double longitude) {
+        // TODO: add validation
+        assignment.setLastPosTimestamp(timestamp);
+        assignment.setLastPosLatitude(latitude);
+        assignment.setLastPosLongitude(longitude);
     }
 }
