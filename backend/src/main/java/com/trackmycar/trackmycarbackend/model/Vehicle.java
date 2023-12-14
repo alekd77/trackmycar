@@ -24,7 +24,7 @@ public class Vehicle {
     @JoinColumn(name="user_id", nullable=false)
     private AppUser owner;
 
-    @OneToMany(mappedBy="vehicle")
+    @OneToMany(mappedBy="vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VehicleTrackerAssignment> assignments;
 
     @Column(nullable=false)

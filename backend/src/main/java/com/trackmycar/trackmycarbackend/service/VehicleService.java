@@ -36,6 +36,7 @@ public class VehicleService {
                 ));
     }
 
+    @Transactional
     public Vehicle addVehicle(AppUser owner,
                               String name,
                               String description,
@@ -99,6 +100,7 @@ public class VehicleService {
         }
     }
 
+    @Transactional
     public void deleteVehicle(Vehicle vehicle) {
         vehicleRepository.delete(vehicle);
     }
