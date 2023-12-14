@@ -3,6 +3,8 @@ package com.trackmycar.trackmycarbackend.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,6 +35,9 @@ public class VehicleTrackerAssignment {
     @JoinColumn(name="tracker_id", nullable=false)
     private Tracker tracker;
 
+    @OneToMany(mappedBy="assignment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Trip> trips;
+
     @Column(name="last_pos_timestamp")
     private LocalDateTime lastPosTimestamp;
 
@@ -47,12 +52,14 @@ public class VehicleTrackerAssignment {
 
     public VehicleTrackerAssignment() {
         super();
+        this.trips = new ArrayList<>();
     }
 
     public VehicleTrackerAssignment(Integer vehicleTrackerAssignmentId,
                                     AppUser owner,
                                     Vehicle vehicle,
                                     Tracker tracker,
+                                    List<Trip> trips,
                                     LocalDateTime lastPosTimestamp,
                                     Double lastPosLatitude,
                                     Double lastPosLongitude,
@@ -61,6 +68,7 @@ public class VehicleTrackerAssignment {
         this.owner = owner;
         this.vehicle = vehicle;
         this.tracker = tracker;
+        this.trips = trips;
         this.lastPosTimestamp = lastPosTimestamp;
         this.lastPosLatitude = lastPosLatitude;
         this.lastPosLongitude = lastPosLongitude;
@@ -97,6 +105,14 @@ public class VehicleTrackerAssignment {
 
     public void setTracker(Tracker tracker) {
         this.tracker = tracker;
+    }
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
     }
 
     public LocalDateTime getLastPosTimestamp() {
@@ -141,16 +157,19 @@ public class VehicleTrackerAssignment {
                 Objects.equals(owner, that.owner) &&
                 Objects.equals(vehicle, that.vehicle) &&
                 Objects.equals(tracker, that.tracker) &&
+                Objects.equals(trips, that.trips) &&
                 Objects.equals(lastPosTimestamp, that.lastPosTimestamp) &&
                 Objects.equals(lastPosLatitude, that.lastPosLatitude) &&
-                Objects.equals(lastPosLongitude, that.lastPosLongitude);
+                Objects.equals(lastPosLongitude, that.lastPosLongitude
+                );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(vehicleTrackerAssignmentId, owner, vehicle,
-                tracker, lastPosTimestamp, lastPosLatitude,
-                lastPosLongitude, isAssignmentActive);
+                tracker, trips, lastPosTimestamp, lastPosLatitude,
+                lastPosLongitude, isAssignmentActive
+        );
     }
 
     @Override
@@ -160,6 +179,7 @@ public class VehicleTrackerAssignment {
                 ", owner=" + owner +
                 ", vehicle=" + vehicle +
                 ", tracker=" + tracker +
+                ", trips=" + trips +
                 ", lastPosTimestamp=" + lastPosTimestamp +
                 ", lastPosLatitude=" + lastPosLatitude +
                 ", lastPosLongitude=" + lastPosLongitude +
