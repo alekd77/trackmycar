@@ -75,7 +75,8 @@ public class TripController {
 
         tripService.deleteTrip(trip);
 
-        return new ResponseEntity<>("Trip has been deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Trip with ID: " + trip.getTripId() +
+                " has been deleted", HttpStatus.OK);
     }
 
     @GetMapping(path="/{tripId}/geolocations")

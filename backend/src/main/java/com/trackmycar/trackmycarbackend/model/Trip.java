@@ -26,7 +26,7 @@ public class Trip {
     @JoinColumn(name="vehicle_tracker_assignment_id", nullable = false)
     private VehicleTrackerAssignment assignment;
 
-    @OneToMany(mappedBy="trip")
+    @OneToMany(mappedBy="trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TripGeolocation> geolocations;
 
     private String name;
@@ -42,6 +42,9 @@ public class Trip {
 
     public Trip() {
         super();
+        this.totalDistance = 0.0;
+        this.maxSpeed = 0.0;
+        this.avgSpeed = 0.0;
         this.geolocations = new ArrayList<>();
     }
 

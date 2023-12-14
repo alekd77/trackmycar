@@ -48,23 +48,23 @@ public class TripService {
         }
 
         String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-        StringBuilder tempName = new StringBuilder("New Trip ").append(date);
+        String tempName = "New Trip " + date;
 
-        int tempNameCounter = 1;
+        int tempNameCounter = 0;
         int maxAttempts = 1000;
 
-        while (tempNameCounter <= maxAttempts) {
-            String candidateName = (tempNameCounter > 1)
-                    ? tempName.append(" (").append(tempNameCounter).append(")").toString()
-                    : tempName.toString();
+        do {
+            String candidateName = tempNameCounter > 0
+                    ? tempName + " (" + tempNameCounter + ")"
+                    : tempName;
 
             if (!tripRepository.existsByName(candidateName)) {
-                tempName = new StringBuilder(candidateName);
+                tempName = candidateName;
                 break;
             }
 
             ++tempNameCounter;
-        }
+        } while (tempNameCounter <= maxAttempts);
 
         if (tempNameCounter > maxAttempts) {
             throw new TripRegistrationException("Failed to generate a valid trip name");
@@ -116,6 +116,7 @@ public class TripService {
     }
 
 
+    @Transactional
     public void deleteTrip(Trip trip) {
         VehicleTrackerAssignment assignment = trip.getAssignment();
         Tracker tracker = assignment.getTracker();
