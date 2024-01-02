@@ -144,4 +144,10 @@ public class VehicleController {
     public ResponseEntity<ApiExceptionDto> handleVehicleRegistrationFailed(VehicleRegistrationFailedException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
+
+    @ExceptionHandler({VehicleTrackerAssignmentNotFoundException.class})
+    public ResponseEntity<ApiExceptionDto> handleVehicleTrackerAssignmentNotFound(
+            VehicleTrackerAssignmentNotFoundException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
+    }
 }

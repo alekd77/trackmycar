@@ -4,7 +4,7 @@ import com.trackmycar.trackmycarbackend.model.Vehicle;
 
 public class VehicleDto {
     private Integer vehicleId;
-    private AppUserDto owner;
+    private Integer ownerId;
     private String name;
     private String description;
     private String markerHexColor;
@@ -13,12 +13,12 @@ public class VehicleDto {
     }
 
     public VehicleDto(Integer vehicleId,
-                      AppUserDto owner,
+                      Integer ownerId,
                       String name,
                       String description,
                       String markerHexColor) {
         this.vehicleId = vehicleId;
-        this.owner = owner;
+        this.ownerId = ownerId;
         this.name = name;
         this.description = description;
         this.markerHexColor = markerHexColor;
@@ -26,7 +26,7 @@ public class VehicleDto {
 
     public VehicleDto(Vehicle vehicle) {
         this.vehicleId = vehicle.getVehicleId();
-        this.owner = new AppUserDto(vehicle.getOwner());
+        this.ownerId = vehicle.getOwner().getUserId();
         this.name = vehicle.getName();
         this.description = vehicle.getDescription();
         this.markerHexColor = vehicle.getMarkerHexColor();
@@ -40,12 +40,12 @@ public class VehicleDto {
         this.vehicleId = vehicleId;
     }
 
-    public AppUserDto getOwner() {
-        return owner;
+    public Integer getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner(AppUserDto owner) {
-        this.owner = owner;
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getName() {
@@ -76,7 +76,7 @@ public class VehicleDto {
     public String toString() {
         return "VehicleDTO{" +
                 "vehicleId=" + vehicleId +
-                ", owner=" + owner +
+                ", ownerId=" + ownerId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", markerHexColor='" + markerHexColor + '\'' +
