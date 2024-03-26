@@ -1,9 +1,6 @@
 package com.trackmycar.trackmycarbackend.service;
 
-import com.trackmycar.trackmycarbackend.exception.FailedToAddTripGeolocationException;
-import com.trackmycar.trackmycarbackend.exception.FailedToDeleteTripException;
-import com.trackmycar.trackmycarbackend.exception.TripNotFoundException;
-import com.trackmycar.trackmycarbackend.exception.TripRegistrationException;
+import com.trackmycar.trackmycarbackend.exception.*;
 import com.trackmycar.trackmycarbackend.model.*;
 import com.trackmycar.trackmycarbackend.repository.TripGeolocationRepository;
 import com.trackmycar.trackmycarbackend.repository.TripRepository;
@@ -20,11 +17,15 @@ import java.util.*;
 public class TripService {
     private final TripRepository tripRepository;
     private final TripGeolocationRepository tripGeolocationRepository;
+    private final GeolocationService geolocationService;
 
     @Autowired
-    public TripService(TripRepository tripRepository, TripGeolocationRepository tripGeolocationRepository) {
+    public TripService(TripRepository tripRepository,
+                       TripGeolocationRepository tripGeolocationRepository,
+                       GeolocationService geolocationService) {
         this.tripRepository = tripRepository;
         this.tripGeolocationRepository = tripGeolocationRepository;
+        this.geolocationService = geolocationService;
     }
 
     public Set<Trip> getAllTripsByOwner(AppUser owner) {
@@ -45,6 +46,12 @@ public class TripService {
     public Trip startNewTrip(VehicleTrackerAssignment assignment) {
         if (!assignment.isAssignmentActive()) {
             throw new TripRegistrationException("Provided assignment is not active");
+        }
+
+        boolean hasActiveTrip = tripRepository
+                .existsByAssignmentAndIsTripEndedFalse(assignment);
+        if (hasActiveTrip) {
+            throw new TripRegistrationException("The assignment already has an active trip");
         }
 
         String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
@@ -82,6 +89,26 @@ public class TripService {
     }
 
     @Transactional
+    public Trip finishCurrentTrip(VehicleTrackerAssignment assignment) {
+        if (!assignment.isAssignmentActive()) {
+            throw new FailedToFinishCurrentTripException("Provided assignment is not active");
+        }
+
+        Optional<Trip> currentTrip = tripRepository.findByAssignmentAndIsTripEndedFalse(assignment);
+
+        if (currentTrip.isEmpty()) {
+            throw new FailedToFinishCurrentTripException("Provided assignment does not have active trip");
+        }
+
+        try {
+            currentTrip.get().setTripEnded(true);
+            return tripRepository.save(currentTrip.get());
+        } catch (Exception e) {
+            throw new FailedToFinishCurrentTripException();
+        }
+    }
+
+    @Transactional
     public void addTripGeolocation(Trip trip, LocalDateTime timestamp, Double latitude,
                                    Double longitude, Double speed) {
         // Validate the geolocation data
@@ -100,6 +127,9 @@ public class TripService {
         }
 
         try {
+            TripGeolocation lastGeolocation = tripGeolocationRepository
+                    .findFirstByTripOrderByTimestampDesc(trip).orElse(null);
+
             TripGeolocation geolocation = new TripGeolocation();
             geolocation.setTrip(trip);
             geolocation.setTimestamp(timestamp);
@@ -109,6 +139,29 @@ public class TripService {
             tripGeolocationRepository.save(geolocation);
 
             trip.getGeolocations().add(geolocation);
+
+            if (lastGeolocation != null) {
+                System.out.println("\nLast geolocation ID: " + lastGeolocation.getTripGeolocationId() + "\n");
+
+                Double newTotalDistance = calculateNewTotalDistance(
+                        trip.getTotalDistance(),
+                        lastGeolocation.getLatitude(),
+                        lastGeolocation.getLongitude(),
+                        latitude,
+                        longitude);
+                trip.setTotalDistance(newTotalDistance);
+            }
+
+            Double newAvgSpeed = trip.getAvgSpeed() > 0.0
+                    ? (trip.getAvgSpeed() + speed) / 2
+                    : speed;
+            trip.setAvgSpeed(newAvgSpeed);
+
+            Double newSpeed = speed > trip.getMaxSpeed()
+                    ? speed
+                    : trip.getMaxSpeed();
+            trip.setMaxSpeed(newSpeed);
+
             tripRepository.save(trip);
         } catch (Exception e) {
             throw new FailedToAddTripGeolocationException();
@@ -131,6 +184,34 @@ public class TripService {
 
         try {
             tripRepository.delete(trip);
+        } catch (Exception e) {
+            throw new FailedToDeleteTripException();
+        }
+    }
+
+    private Double calculateNewTotalDistance(Double oldTotalDistance,
+                                             Double oldPosLat,
+                                             Double oldPosLon,
+                                             Double newPosLat,
+                                             Double newPosLon) {
+        Double traversedDistance = geolocationService.calculateDistance(
+                oldPosLat, oldPosLon, newPosLat, newPosLon);
+
+        return oldTotalDistance + traversedDistance;
+    }
+
+    public TripGeolocation getTripGeolocationById(Integer geolocationId) {
+        return tripGeolocationRepository
+                .findById(geolocationId)
+                .orElseThrow(() -> new TripGeolocationNotFoundException(
+                        "TripGeolocation of given ID: " + geolocationId + " not found"
+                ));
+    }
+
+    @Transactional
+    public void deleteTripGeolocation(TripGeolocation geolocation) {
+        try {
+            tripGeolocationRepository.delete(geolocation);
         } catch (Exception e) {
             throw new FailedToDeleteTripException();
         }
