@@ -29,7 +29,7 @@ public class HardwareController {
         this.tripService = tripService;
     }
 
-    @PostMapping(path="trackers/send-alert")
+    @PostMapping(path="/trackers/send-alert")
     public ResponseEntity<String> sendAlert() {
         return new ResponseEntity<String>("Not implemented yet", HttpStatus.NOT_IMPLEMENTED);
     }
@@ -57,6 +57,14 @@ public class HardwareController {
         Trip trip = tripService.startNewTrip(assignment);
 
         return new ResponseEntity<>("Started new trip with ID: " + trip.getTripId(), HttpStatus.OK);
+    }
+
+    @PostMapping(path="/trackers/{trackerId}/finish-current-trip")
+    public ResponseEntity<String> finishCurrentTrip(@PathVariable("trackerId") Integer trackerId) {
+        VehicleTrackerAssignment assignment = assignmentService.getActiveAssignmentByTrackerId(trackerId);
+        Trip trip = tripService.finishCurrentTrip(assignment);
+
+        return new ResponseEntity<>("Trip with ID: " + trip.getTripId() + " has been successfully finished", HttpStatus.OK);
     }
 
     @PostMapping(path="/trackers/add-trip-geolocation")
@@ -111,6 +119,11 @@ public class HardwareController {
 
     @ExceptionHandler({TripRegistrationException.class})
     public ResponseEntity<ApiExceptionDto> handleTripRegistrationException(TripRegistrationException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
+    }
+
+    @ExceptionHandler({FailedToFinishCurrentTripException.class})
+    public ResponseEntity<ApiExceptionDto> handleFailedToFinishCurrentTripException(FailedToFinishCurrentTripException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 
