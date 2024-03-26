@@ -40,12 +40,16 @@ public class Trip {
     @Column(name="avg_speed")
     private Double avgSpeed;
 
+    @Column(name="is_trip_ended")
+    private boolean isTripEnded;
+
     public Trip() {
         super();
+        this.geolocations = new ArrayList<>();
         this.totalDistance = 0.0;
         this.maxSpeed = 0.0;
         this.avgSpeed = 0.0;
-        this.geolocations = new ArrayList<>();
+        this.isTripEnded = false;
     }
 
     public Trip(Integer tripId,
@@ -54,7 +58,8 @@ public class Trip {
                 String name,
                 Double totalDistance,
                 Double maxSpeed,
-                Double avgSpeed) {
+                Double avgSpeed,
+                Boolean isTripEnded) {
         super();
         this.tripId = tripId;
         this.assignment = assignment;
@@ -63,6 +68,7 @@ public class Trip {
         this.totalDistance = totalDistance;
         this.maxSpeed = maxSpeed;
         this.avgSpeed = avgSpeed;
+        this.isTripEnded = isTripEnded;
     }
 
     public Integer getTripId() {
@@ -121,7 +127,41 @@ public class Trip {
         this.avgSpeed = avgSpeed;
     }
 
+    public boolean isTripEnded() {
+        return isTripEnded;
+    }
+
+    public void setTripEnded(boolean ended) {
+        isTripEnded = ended;
+    }
+
     public AppUser getOwner() {
-        return assignment != null ? assignment.getOwner() : null;
+        return assignment != null
+                ? assignment.getOwner()
+                : null;
+    }
+
+    public Vehicle getVehicle() {
+        return assignment != null
+                ? assignment.getVehicle()
+                : null;
+    }
+
+    public Tracker getTracker() {
+        return assignment != null
+                ? assignment.getTracker()
+                : null;
+    }
+
+    public LocalDateTime getStartTimestamp() {
+        return geolocations != null && !geolocations.isEmpty()
+                ? geolocations.get(0).getTimestamp()
+                : null;
+    }
+
+    public LocalDateTime getEndTimestamp() {
+        return geolocations != null && !geolocations.isEmpty() && isTripEnded
+                ? geolocations.get(geolocations.size() - 1).getTimestamp()
+                : null;
     }
 }

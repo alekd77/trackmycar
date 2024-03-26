@@ -1,13 +1,11 @@
 package com.trackmycar.trackmycarbackend.controller;
 
-import com.trackmycar.trackmycarbackend.dto.ApiExceptionDto;
-import com.trackmycar.trackmycarbackend.dto.TripDto;
-import com.trackmycar.trackmycarbackend.dto.TripGeolocationDto;
-import com.trackmycar.trackmycarbackend.dto.TripWithGeolocationsDto;
+import com.trackmycar.trackmycarbackend.dto.*;
 import com.trackmycar.trackmycarbackend.exception.FailedToDeleteTripException;
 import com.trackmycar.trackmycarbackend.exception.TripNotFoundException;
 import com.trackmycar.trackmycarbackend.exception.TripRegistrationException;
-import com.trackmycar.trackmycarbackend.exception.VehicleNotFoundException;
+import com.trackmycar.trackmycarbackend.exception.FailedToDeleteTripGeolocationException;
+import com.trackmycar.trackmycarbackend.exception.TripGeolocationNotFoundException;
 import com.trackmycar.trackmycarbackend.model.*;
 import com.trackmycar.trackmycarbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +44,18 @@ public class TripController {
         AppUser user = userService.getUserByUsername(username);
         Set<Trip> trips = tripService.getAllTripsByOwner(user);
 
-        return trips
-                .stream()
-                .map(TripDto::new)
+        return trips.stream()
+                .map(trip -> new TripDto(
+                        trip.getTripId(),
+                        trip.getVehicle(),
+                        trip.getTracker(),
+                        trip.getStartTimestamp(),
+                        trip.getEndTimestamp(),
+                        trip.getName(),
+                        trip.getTotalDistance(),
+                        trip.getMaxSpeed(),
+                        trip.getAvgSpeed(),
+                        trip.isTripEnded()))
                 .collect(Collectors.toSet());
     }
 
@@ -61,7 +68,17 @@ public class TripController {
 
         authorizationService.checkResourceAccessAuthorization(trip, user, Trip::getOwner);
 
-        return new TripDto(trip);
+        return new TripDto(
+                trip.getTripId(),
+                trip.getVehicle(),
+                trip.getTracker(),
+                trip.getStartTimestamp(),
+                trip.getEndTimestamp(),
+                trip.getName(),
+                trip.getTotalDistance(),
+                trip.getMaxSpeed(),
+                trip.getAvgSpeed(),
+                trip.isTripEnded());
     }
 
     @DeleteMapping(path="/{tripId}")
@@ -88,15 +105,43 @@ public class TripController {
 
         authorizationService.checkResourceAccessAuthorization(trip, user, Trip::getOwner);
 
-        TripDto tripDto = new TripDto(trip);
+        TripDto tripDto = new TripDto(
+                trip.getTripId(),
+                trip.getVehicle(),
+                trip.getTracker(),
+                trip.getStartTimestamp(),
+                trip.getEndTimestamp(),
+                trip.getName(),
+                trip.getTotalDistance(),
+                trip.getMaxSpeed(),
+                trip.getAvgSpeed(),
+                trip.isTripEnded());
 
-        List<TripGeolocationDto> geolocationsDtoList =
+        List<TripGeolocationDto> geolocationsDto =
                 trip.getGeolocations()
                 .stream()
                 .map(TripGeolocationDto::new)
                 .toList();
 
-        return new TripWithGeolocationsDto(tripDto, geolocationsDtoList);
+        return new TripWithGeolocationsDto(tripDto, geolocationsDto);
+    }
+
+    @GetMapping(path="/{tripId}/geolocations/{geolocationId}")
+    public ResponseEntity<String> deleteTripGeolocation(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+                                                         @PathVariable("tripId") Integer tripId,
+                                                         @PathVariable("geolocationId") Integer geolocationId) {
+        String username = tokenService.getUsernameFromToken(token);
+        AppUser user = userService.getUserByUsername(username);
+        Trip trip = tripService.getTripById(tripId);
+
+        authorizationService.checkResourceAccessAuthorization(trip, user, Trip::getOwner);
+
+        TripGeolocation tripGeolocation = tripService.getTripGeolocationById(geolocationId);
+
+        tripService.deleteTripGeolocation(tripGeolocation);
+
+        return new ResponseEntity<>("TripGeolocation with ID: " + trip.getTripId() +
+                " has been deleted", HttpStatus.OK);
     }
 
     @ExceptionHandler({TripNotFoundException.class})
@@ -111,6 +156,16 @@ public class TripController {
 
     @ExceptionHandler({FailedToDeleteTripException.class})
     public ResponseEntity<ApiExceptionDto> handleFailedToDeleteTrip(FailedToDeleteTripException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
+    }
+
+    @ExceptionHandler({TripGeolocationNotFoundException.class})
+    public ResponseEntity<ApiExceptionDto> handleTripGeolocationNotFound(TripGeolocationNotFoundException ex) {
+        return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
+    }
+
+    @ExceptionHandler({FailedToDeleteTripGeolocationException.class})
+    public ResponseEntity<ApiExceptionDto> handleFailedToDeleteTripGeolocation(FailedToDeleteTripGeolocationException ex) {
         return new ResponseEntity<>(new ApiExceptionDto(ex), ex.getStatus());
     }
 }
