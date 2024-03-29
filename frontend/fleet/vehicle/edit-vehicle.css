@@ -1,0 +1,194 @@
+/* Header Styles */
+header {
+    background-color: #34495e;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center-align items vertically */
+    text-align: center;
+}
+
+.title-container {
+    display: flex; /* Add this line to make the children display in a row */
+}
+
+header h1, .subpage-title {
+    margin: 0;
+}
+
+.subpage-title {
+    color: #ecf0f1;
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    text-align: center;
+    background-color: #34495e;
+    overflow: hidden;
+    width: 80%;
+    justify-content: flex-end;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar li {
+    text-align: center;
+}
+
+.navbar a {
+    display: flex;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #2980b9;
+}
+
+.expandable ul {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    box-sizing: border-box;
+}
+
+.expandable:hover ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.expandable ul li {
+    text-align: center;
+    border-bottom: 1px solid #2c3e50;
+}
+
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+
+
+/* Subpage related styles */
+
+/* Main Content Styles */
+.main-content {
+    max-width: 600px;
+    margin: 0 auto; /* Center the main content */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 80px; /* Add margin at the bottom to create space */
+    margin-top: 40px; /* Add margin at the top to create space */
+}
+
+/* Intro Section Styles */
+.intro {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.intro h2 {
+    color: #333;
+}
+
+.intro p {
+    color: #666;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.label-container {
+    position: relative;
+}
+
+.button.return-button {
+    position: relative; /* Change from absolute to relative */
+    top: 0; /* Remove the top positioning */
+    left: 0; /* Remove the left positioning */
+    margin-top: 10px; /* Add margin-top to adjust the position */
+    margin-bottom: 10px; /* Add margin-bottom to adjust the position */
+    background-color: #3498db;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    border: 1px solid #000;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button.return-button:hover {
+    background-color: #2980b9;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+#markerColor {
+    height: 50px;
+    width: 100px;
+}
