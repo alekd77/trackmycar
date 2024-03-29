@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Handle return button click
     returnButton.addEventListener('click', function () {
-        window.location.href = "/fleet/vehicle/vehicle.html";
+        window.location.href = "../../fleet/vehicle/vehicle.html";
     });
 
     // Handle edit vehicle button click
@@ -70,7 +70,7 @@ async function handleEditVehicle() {
 
         if (response.ok) {
             showSuccessAlert('Vehicle updated successfully', () => {
-                window.location.href = "/fleet/vehicle/vehicle.html";
+                window.location.href = "../../fleet/vehicle/vehicle.html";
             });
         } else {
             const responseData = await response.json();

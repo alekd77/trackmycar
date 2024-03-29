@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const returnButton = document.getElementById('returnButton');
     returnButton.addEventListener('click', function () {
-        window.location.href = "/fleet/vehicle/vehicle.html";
+        window.location.href = "../../fleet/vehicle/vehicle.html";
     });
 
     const addVehicleButton = document.querySelector('.submit-button');
@@ -15,7 +15,7 @@ async function handleAddVehicle() {
     if (vehicleResponse) {
         // Show the success alert and redirect after confirmation
         showSuccessAlert('Vehicle added successfully', () => {
-            window.location.href = "/fleet/vehicle/vehicle.html";
+            window.location.href = "../../fleet/vehicle/vehicle.html";
         });
     }
 }

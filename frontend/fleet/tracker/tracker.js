@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const addButton = document.querySelector('.add-button');
     addButton.addEventListener('click', function () {
-        window.location.href = 'add-tracker.html';
+        window.location.href = '../../fleet/tracker/add-tracker.html';
     });
 
     getTrackers();
@@ -96,7 +96,7 @@ async function createMenuOptions(trackerId, row) {
     editButton.textContent = 'Edit';
 
     editButton.addEventListener('click', async function () {
-        window.location.href = `edit-tracker.html?trackerId=${trackerId}`;
+        window.location.href = `../../fleet/tracker/edit-tracker.html?trackerId=${trackerId}`;
     });
 
     const deleteButton = document.createElement('button');
