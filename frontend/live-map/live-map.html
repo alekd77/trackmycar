@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="live-map.css">
+    <title>Live Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+    <script src="../../config.js"></script>
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <h1>TrackMyCar!</h1>
+            <div class="subpage-title">Live Map</div>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="/live-map/live-map.html">Live Map</a></li>
+                <li class="expandable">
+                    <a href="#">Fleet</a>
+                    <ul>
+                        <li><a href="/fleet/vehicle/vehicle.html">Vehicles</a></li>
+                        <li><a href="/fleet/tracker/tracker.html">Trackers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/trip/trip.html">Trips</a></li>
+                <li><a href="#" class="button" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="map-container">
+        <div id="map"></div>
+        <div id="table-container">
+            <div id="table-header">
+                <h2>Vehicle List</h2>
+                <p>Explore the current positions of your vehicles on the map.</p>
+                <button id="refreshButton">Refresh Data</button>
+                <button id="learnMoreButton">Learn More</button>
+                <div id="learnMoreSection" style="display: none;">
+                    <div>
+                        <button onclick="toggleSection('processDetails')">Adding and Tracking Vehicles</button>
+                        <div id="processDetails" style="display: none;">
+                            <div></div>
+                            <ul>
+                                <li><strong>Add Vehicles:</strong> Head to the Fleet Vehicles tab and add each vehicle you wish to track.</li>
+                                <li><strong>Assign Trackers:</strong> In the same tab, assign a tracker to each vehicle. A tracker is crucial for updating the vehicle's last position.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="toggleSection('associatedMessages')">Important Notes</button>
+                        <div id="associatedMessages" style="display: none;">
+                            <div></div>
+                            <ul>
+                                <li><strong>Tracker Requirement:</strong> For a vehicle to appear on the map, a tracker must update its last position.</li>
+                                <li><strong>Update Delays:</strong> Vehicles with recently added trackers may take some time to update their last positions.</li>
+                                <li><strong>No Tracker, No Display:</strong> Without a tracker or position update, a vehicle won't appear on the map.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="toggleSection('additionalSteps')">Additional Tips</button>
+                        <div id="additionalSteps" style="display: none;">
+                            <div></div>
+                            <ul>
+                                <li><strong>Refresh Data:</strong> Click the "Refresh Data" button to view the latest positions. Only vehicles with assigned trackers and updated positions will be displayed.</li>
+                                <li><strong>Interact with Markers:</strong> Click on a vehicle marker on the map for more details.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="vehicleTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Last seen:</th>
+                        <th>Latitude:</th>
+                        <th>Longitude:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Vehicle data will be dynamically populated here -->
+                </tbody>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 TrackMyCar!</p>
+    </footer>
+
+    <script src="live-map.js"></script>
+    <script src="/auth/login/logout.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin="">
+    </script>
+</body>
+</html>

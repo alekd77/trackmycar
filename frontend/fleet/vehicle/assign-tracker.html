@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Tracker</title>
+    <link rel="stylesheet" href="assign-tracker.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../config.js"></script>
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <h1>TrackMyCar!</h1>
+            <div class="subpage-title">Vehicles</div>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="/live-map/live-map.html">Live Map</a></li>
+                <li class="expandable">
+                    <a href="#">Fleet</a>
+                    <ul>
+                        <li><a href="/fleet/vehicle/vehicle.html">Vehicles</a></li>
+                        <li><a href="/fleet/tracker/tracker.html">Trackers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/trip/trip.html">Trips</a></li>
+                <li><a href="#" class="button" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <button type="button" class="button return-button" id="returnButton">&#8592;</button>
+
+        <div class="intro">
+            <h2>Assign Tracker</h2>
+            <p>Choose a tracker to be assigned to the vehicle:</p>
+        </div>
+
+        <div id="assignTrackerContainer">
+            <select id="assignTracker" name="assignTracker" onchange="toggleTrackerForm()">
+                <option value="hide" selected>Choose Assignment</option>
+                <option value="new">New Tracker</option>
+                <option value="existing">Existing Tracker</option>
+            </select>
+        </div>
+
+        <!-- New Tracker Form (Initially Hidden) -->
+        <div id="newTrackerForm" style="display: none;">
+            <label for="trackerName">Tracker Name:</label>
+            <input type="text" id="trackerName" name="trackerName">
+
+            <label for="trackerDescription">Tracker Description:</label>
+            <input type="text" id="trackerDescription" name="trackerDescription">
+
+            <label for="trackerImei">Tracker IMEI:</label>
+            <input type="text" id="trackerImei" name="trackerImei">
+        </div>
+
+        <!-- Existing Tracker Selection (Initially Hidden) -->
+        <div id="existingTrackerSelection" style="display: none;">
+            <label for="existingTracker">Select Existing Tracker:</label>
+            <select id="existingTracker" name="existingTracker">
+                <!-- Options will be populated dynamically -->
+            </select>
+        </div>
+
+        <button type="button" class="button submit-button" id="submitButton">Assign Tracker</button>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 TrackMyCar!</p>
+    </footer>
+
+    <script src="assign-tracker.js"></script>
+</body>
+</html>

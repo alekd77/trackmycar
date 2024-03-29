@@ -1,0 +1,195 @@
+/* Header Styles */
+header {
+    background-color: #34495e;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center-align items vertically */
+    text-align: center;
+}
+
+.title-container {
+    display: flex; /* Add this line to make the children display in a row */
+}
+
+header h1, .subpage-title {
+    margin: 0;
+}
+
+.subpage-title {
+    color: #ecf0f1;
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    text-align: center;
+    background-color: #34495e;
+    overflow: hidden;
+    width: 80%;
+    justify-content: flex-end;
+    z-index: 10;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    z-index: 10;
+}
+
+.navbar li {
+    text-align: center;
+    z-index: 10;
+}
+
+.navbar a {
+    display: flex;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.navbar a:hover {
+    background-color: #2980b9;
+    z-index: 10;
+}
+
+.expandable ul {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.expandable:hover ul {
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.expandable ul li {
+    text-align: center;
+    border-bottom: 1px solid #2c3e50;
+    z-index: 10;
+}
+
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+/* Subpage related styles */
+
+.main-container {
+    max-width: 1200px; /* Set a maximum width for the main container */
+    margin: 0 auto; /* Center the main container horizontally */
+    padding: 20px; /* Add some padding to the main container */
+    margin-bottom: 20px;
+}
+
+/* Trip Details Styles */
+.trip-details-container {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#trip-name {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #3498db;
+}
+
+/* Adjust styles for displaying trip details */
+.trip-details-container p {
+    margin: 8px 0;
+}
+
+/* Adjust styles for displaying trip details */
+
+
+#map-container {
+    display: flex;
+    margin: 20px 20px 20px 20px; /* Add right margin to create space between map and table */
+    height: calc(100vh - 60px);
+    justify-content: center;
+}
+
+#map {
+    width: 100%;
+    border: 0.1px solid #34495e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add this CSS to your existing styles */
+.vehicle-icon {
+    width: 100%; /* Adjust the size of the image */
+    height: auto;
+}
+
+/* Add this CSS to your existing styles */
+.custom-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marker-circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #fff; /* You can adjust the border color */
+}

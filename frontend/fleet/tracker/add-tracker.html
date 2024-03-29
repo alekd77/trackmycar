@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new tracker</title>
+    <link rel="stylesheet" href="add-tracker.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../config.js"></script>
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <h1>TrackMyCar!</h1>
+            <div class="subpage-title">Trackers</div>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="/live-map/live-map.html">Live Map</a></li>
+                <li class="expandable">
+                    <a href="#">Fleet</a>
+                    <ul>
+                        <li><a href="/fleet/vehicle/vehicle.html">Vehicles</a></li>
+                        <li><a href="/fleet/tracker/tracker.html">Trackers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/trip/trip.html">Trips</a></li>
+                <li><a href="#" class="button" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <button type="button" class="button return-button" id="returnButton">&#8592;</button>
+        
+        <div class="intro">
+            <h2>Add New Tracker</h2>
+            <p>Complete the form below to add a new tracker.</p>
+        </div>
+
+        <form id="addTrackerForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="imei">IMEI:</label>
+            <input type="text" id="imei" name="imei" required>
+
+            <button type="button" class="button submit-button">Add Tracker</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 TrackMyCar!</p>
+    </footer>
+
+    <script src="add-tracker.js"></script>
+    <script src="/auth/login/logout.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicles</title>
+    <link rel="stylesheet" href="vehicle.css">
+    <!-- Add this line to include SweetAlert2 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../config.js"></script>
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <h1>TrackMyCar!</h1>
+            <div class="subpage-title">Vehicles</div>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="/live-map/live-map.html">Live Map</a></li>
+                <li class="expandable">
+                    <a href="#">Fleet</a>
+                    <ul>
+                        <li><a href="/fleet/vehicle/vehicle.html">Vehicles</a></li>
+                        <li><a href="/fleet/tracker/tracker.html">Trackers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/trip/trip.html">Trips</a></li>
+                <li><a href="#" class="button" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="intro">
+            <h2>Vehicles List</h2>
+            <p>Displaying vehicles for the currently logged-in user.</p>
+        </div>
+
+        <div class="button-container">
+            <button class="button add-button">Add Vehicle</button>
+        </div>
+
+        <table id="vehicleTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Assigned Tracker</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Vehicle data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 TrackMyCar!</p>
+    </footer>
+
+    <script src="vehicle.js"></script>
+    <script src="/auth/login/logout.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="trip-details.css">
+    <title>Trip Details</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""/>
+    <script src="../../config.js"></script>
+</head>
+<body>
+    <header>
+        <div class="title-container">
+            <h1>TrackMyCar!</h1>
+            <div class="subpage-title">Trip details</div>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dashboard/dashboard.html">Dashboard</a></li>
+                <li><a href="/live-map/live-map.html">Live Map</a></li>
+                <li class="expandable">
+                    <a href="#">Fleet</a>
+                    <ul>
+                        <li><a href="/fleet/vehicle/vehicle.html">Vehicles</a></li>
+                        <li><a href="/fleet/tracker/tracker.html">Trackers</a></li>
+                    </ul>
+                </li>
+                <li><a href="/trip/trip.html">Trips</a></li>
+                <li><a href="#" class="button" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <div class="trip-details-container">
+            <h2 id="trip-name"></h2>
+            <p>Start Timestamp: <span id="start-timestamp"></span></p>
+            <p>End Timestamp: <span id="end-timestamp"></span></p>
+            <p>Total Distance: <span id="total-distance"></span> km</p>
+            <p>Max Speed: <span id="max-speed"></span> km/h</p>
+        </div>
+
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 TrackMyCar!</p>
+    </footer>
+
+    <script src="trip-details.js"></script>
+    <script src="/auth/login/logout.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin="">
+    </script>
+</body>
+</html>

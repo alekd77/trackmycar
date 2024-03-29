@@ -1,0 +1,323 @@
+/* Header Styles */
+header {
+    background-color: #34495e;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center-align items vertically */
+    text-align: center;
+}
+
+.title-container {
+    display: flex; /* Add this line to make the children display in a row */
+}
+
+header h1, .subpage-title {
+    margin: 0;
+}
+
+.subpage-title {
+    color: #ecf0f1;
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    text-align: center;
+    background-color: #34495e;
+    overflow: hidden;
+    width: 80%;
+    justify-content: flex-end;
+    z-index: 10;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    z-index: 10;
+}
+
+.navbar li {
+    text-align: center;
+    z-index: 10;
+}
+
+.navbar a {
+    display: flex;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.navbar a:hover {
+    background-color: #2980b9;
+    z-index: 10;
+}
+
+.expandable ul {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.expandable:hover ul {
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.expandable ul li {
+    text-align: center;
+    border-bottom: 1px solid #2c3e50;
+    z-index: 10;
+}
+
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+/* Subpage related styles */
+
+#map-container {
+    display: flex;
+    margin: 20px 20px 20px 20px; /* Add right margin to create space between map and table */
+    height: calc(100vh - 180px);
+}
+
+#map {
+    width: 70%;
+    border: 1px solid #34495e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#table-container {
+    width: 30%;
+    margin-left: 20px; /* Add left margin to create space between map and table */
+}
+
+#table-header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #ccc;
+}
+
+#table-header h2 {
+    margin: 0;
+}
+
+#refreshButton,
+#learnMoreButton {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#refreshButton:hover,
+#learnMoreButton:hover {
+    background-color: #2980b9;
+}
+
+/* Learn More Section Styles */
+#learnMoreSection {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+#learnMoreSection div {
+    margin-bottom: 20px;
+}
+
+#learnMoreSection button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#learnMoreSection button:hover {
+    background-color: #2980b9;
+}
+
+#learnMoreSection p {
+    margin-top: 0;
+}
+
+#learnMoreSection ul, #learnMoreSection ol {
+    padding-left: 20px;
+}
+
+#learnMoreSection li {
+    margin-bottom: 8px;
+}
+
+/* Subtle Styling for Learn More Section Boxes */
+#learnMoreSection > div {
+    background-color: #f7f7f7; /* Set a subtle background color for each box */
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px; /* Add margin between boxes */
+    border: 1px solid #ddd; /* Soft border color */
+}
+
+#learnMoreSection > div:nth-child(even) {
+    background-color: #f4f4f4; /* Set a different subtle background color for even boxes */
+}
+
+
+
+/* Adjust Map and Table Container */
+#map-container {
+    display: flex;
+    margin: 20px 20px 20px 20px;
+    height: calc(100vh - 180px); /* Adjusted height to accommodate Learn More Section */
+}
+
+#table-container {
+    width: 40%;
+    margin-left: 20px;
+}
+
+#vehicleTable {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 8px 8px;
+}
+
+#vehicleTable th, #vehicleTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#vehicleTable th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* Adjust Footer Position */
+.footer {
+    margin-top: 20px;
+}
+
+/* Add Hover Effect to Learn More Button */
+#learnMoreButton:hover {
+    background-color: #2980b9;
+}
+
+/* Additional Styling for Better Readability */
+#learnMoreSection strong {
+    font-weight: bold;
+    color: #333;
+}
+
+#learnMoreSection hr {
+    border: 0.5px solid #ccc;
+    margin: 10px 0;
+}
+
+
+/* Adjusted styling for labels in #vehicleInfoTable */
+#vehicleInfoTable th,
+#vehicleInfoTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#vehicleInfoTable th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+#vehicleInfoTable td {
+    color: #555;
+}
+
+#vehicleInfoTable tr:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* Add this CSS to your existing styles */
+.vehicle-icon {
+    width: 100%; /* Adjust the size of the image */
+    height: auto;
+}
+
+/* Add this CSS to your existing styles */
+.custom-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marker-circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #fff; /* You can adjust the border color */
+}
