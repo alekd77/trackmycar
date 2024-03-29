@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Handle return button click
     returnButton.addEventListener('click', function () {
-        window.location.href = "/fleet/tracker/tracker.html";
+        window.location.href = "../../fleet/tracker/tracker.html";
     });
 
     // Handle edit vehicle button click
@@ -70,7 +70,7 @@ async function handleEditTracker() {
 
         if (response.ok) {
             showSuccessAlert('Tracker updated successfully', () => {
-                window.location.href = "/fleet/tracker/tracker.html";
+                window.location.href = "../../fleet/tracker/tracker.html";
             });
         } else {
             const responseData = await response.json();

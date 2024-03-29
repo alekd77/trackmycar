@@ -37,7 +37,7 @@ async function submitForm() {
             localStorage.setItem('jwt', jwt);
 
             // Redirect to the dashboard or any other authorized page
-            window.location.href = '/dashboard/dashboard.html';
+            window.location.href = '../../dashboard/dashboard.html';
             
         } else {
             const errorData = await response.json();

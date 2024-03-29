@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const addButton = document.querySelector('.add-button');
     addButton.addEventListener('click', function () {
-        window.location.href = 'add-vehicle.html';
+        window.location.href = '../../fleet/vehicle/add-vehicle.html';
     });
 
     document.addEventListener('click', hideAllMenuOptions);
@@ -112,7 +112,7 @@ async function createMenuOptions(vehicleId, row) {
     editButton.textContent = 'Edit';
 
     editButton.addEventListener('click', function () {
-        window.location.href = `edit-vehicle.html?vehicleId=${vehicleId}`;
+        window.location.href = `../../fleet/vehicle/edit-vehicle.html?vehicleId=${vehicleId}`;
     });
 
     const assignTrackerButton = document.createElement('button');
@@ -134,7 +134,7 @@ async function createMenuOptions(vehicleId, row) {
         assignTrackerButton.textContent = 'Assign Tracker';
 
         assignTrackerButton.addEventListener('click', function () {
-            window.location.href = `assign-tracker.html?vehicleId=${vehicleId}`;
+            window.location.href = `../../fleet/vehicle/assign-tracker.html?vehicleId=${vehicleId}`;
         });
     }
 

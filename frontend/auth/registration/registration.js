@@ -39,7 +39,7 @@ async function submitForm() {
                 text: 'You can now log in with your credentials.',
             }).then(() => {
                 // Redirect to the login page
-                window.location.href = "/auth/login/login.html";
+                window.location.href = "../login/login.html";
             });
         } else {
             var errorData = await response.json();

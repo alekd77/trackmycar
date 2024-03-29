@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const returnButton = document.getElementById('returnButton');
     returnButton.addEventListener('click', function () {
-        window.location.href = "/fleet/vehicle/vehicle.html";
+        window.location.href = "../../fleet/vehicle/vehicle.html";
     });
     
     const assignTrackerButton = document.getElementById('submitButton');
@@ -48,7 +48,7 @@ async function handleNewTrackerAssignment(vehicleId) {
             if (assignmentResponse?.ok) {
                 console.log('Assignment successful!');
                 showSuccessAlert(`Tracker has been assigned successfully`, () => {
-                    window.location.href = "/fleet/vehicle/vehicle.html";
+                    window.location.href = "../../fleet/vehicle/vehicle.html";
                 });
             } else if (assignmentResponse.error) {
                 console.error('Error assigning new tracker:', assignmentResponse.error);
@@ -84,7 +84,7 @@ async function handleExistingTrackerAssignment(vehicleId) {
             if (assignmentResponse?.ok) {
                 console.log('Assignment successful!');
                 showSuccessAlert(`Tracker has been assigned successfully`, () => {
-                    window.location.href = "/fleet/vehicle/vehicle.html";
+                    window.location.href = "../../fleet/vehicle/vehicle.html";
                 });
             } else if (assignmentResponse.error) {
                 console.error(`Failed to assign existing tracker due to: ${assignmentResponse.error}`);

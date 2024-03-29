@@ -95,7 +95,7 @@ async function createMenuOptions(tripId) {
     viewDetailsButton.textContent = 'View Details';
 
     viewDetailsButton.addEventListener('click', function () {
-        window.location.href = `trip-details.html?tripId=${tripId}`;
+        window.location.href = `../trip/trip-details.html?tripId=${tripId}`;
     });
 
     const deleteButton = document.createElement('button');

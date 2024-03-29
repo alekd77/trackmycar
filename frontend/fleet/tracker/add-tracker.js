@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const returnButton = document.getElementById('returnButton');
     returnButton.addEventListener('click', function () {
-        window.location.href = "/fleet/tracker/tracker.html";
+        window.location.href = "../../fleet/tracker/tracker.html";
     });
 
     const addTrackerButton = document.querySelector('.submit-button');
@@ -35,7 +35,7 @@ async function addTracker() {
 
         if (response.ok) {
             showSuccessAlert('Tracker added successfully', () => {
-                window.location.href = "/fleet/tracker/tracker.html";
+                window.location.href = "../../fleet/tracker/tracker.html";
             });
         } else {
             // Display SweetAlert for error handling
