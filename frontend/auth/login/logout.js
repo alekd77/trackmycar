@@ -5,5 +5,5 @@ function logout() {
     localStorage.removeItem('userData');
 
     // Redirect to the login page
-    window.location.href = '/index.html';
+    window.location.href = '../../index.html';
 }
