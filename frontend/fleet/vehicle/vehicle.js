@@ -55,7 +55,6 @@ async function displayVehicles(vehicles) {
 async function createVehicleRow(vehicle) {
     const row = document.createElement('tr');
     row.innerHTML = `
-        <td>${vehicle.vehicleId}</td>
         <td></td>
         <td>${vehicle.name}</td>
         <td>${vehicle.description}</td>
@@ -64,12 +63,12 @@ async function createVehicleRow(vehicle) {
     `;
 
     const vehicleIcon = document.createElement('img');
-    vehicleIcon.src = '/res/images/car.svg'
+    vehicleIcon.src = '../../res/images/car.svg'
     const markerHexColor = await getMarkerHexColor(vehicle.vehicleId);
     vehicleIcon.style.backgroundColor = markerHexColor;
     vehicleIcon.alt = 'Car Icon';
     vehicleIcon.classList.add('vehicle-icon');
-    row.children[1].appendChild(vehicleIcon);
+    row.children[0].appendChild(vehicleIcon);
 
     const menuButton = createMenuButton(vehicle.vehicleId);
     const menuOptions = await createMenuOptions(vehicle.vehicleId, row);
@@ -88,8 +87,8 @@ async function createVehicleRow(vehicle) {
         trackerNameCell.textContent = '-';
     }
 
-    row.children[5].appendChild(menuButton);
-    row.children[5].appendChild(menuOptions);
+    row.children[4].appendChild(menuButton);
+    row.children[4].appendChild(menuOptions);
 
     return row;
 }

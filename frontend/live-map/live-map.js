@@ -153,7 +153,7 @@ async function createMarkerIcon(vehicleId) {
         className: 'custom-marker',
         html: `
             <div class="marker-circle" style="background-color: ${markerHexColor};">
-                <img src="/res/images/car.svg" class="vehicle-icon" />
+                <img src="../../res/images/car.svg" class="vehicle-icon" />
             </div>`,
         iconSize: [50, 50], // Adjust the size of the icon as needed
     });
@@ -172,7 +172,7 @@ async function createTableIcon(vehicleId) {
     div.style.backgroundColor = markerHexColor;
     
     const vehicleIcon = document.createElement('img');
-    vehicleIcon.src = '/res/images/car.svg';
+    vehicleIcon.src = '../../res/images/car.svg';
     vehicleIcon.alt = 'Car Icon';
     vehicleIcon.classList.add('vehicle-icon-table');
     

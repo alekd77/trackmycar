@@ -50,7 +50,6 @@ async function displayTrackers(trackers) {
 async function createTrackerRow(tracker) {
     const row = document.createElement('tr');
     row.innerHTML = `
-    <td>${tracker.trackerId}</td>
     <td></td>
     <td>${tracker.name}</td>
     <td>${tracker.description}</td>
@@ -59,10 +58,10 @@ async function createTrackerRow(tracker) {
     `;
 
     const trackerIcon = document.createElement('img');
-    trackerIcon.src = '/res/images/tracker.svg'
+    trackerIcon.src = '../../res/images/tracker.svg'
     trackerIcon.alt = 'Tracker Icon';
     trackerIcon.classList.add('tracker-icon');
-    row.children[1].appendChild(trackerIcon);
+    row.children[0].appendChild(trackerIcon);
 
     const menuButton = createMenuButton(tracker.trackerId);
     const menuOptions = await createMenuOptions(tracker.trackerId, row);
@@ -72,8 +71,8 @@ async function createTrackerRow(tracker) {
         menuOptions.classList.toggle('visible');
     });
 
-    row.children[5].appendChild(menuButton);
-    row.children[5].appendChild(menuOptions);
+    row.children[4].appendChild(menuButton);
+    row.children[4].appendChild(menuOptions);
 
     return row;
 }

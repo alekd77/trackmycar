@@ -54,7 +54,6 @@ async function createTripTableRow(trip) {
     const formattedMaxSpeed = trip.maxSpeed ? trip.maxSpeed.toFixed(2) + ' km/h' : '-';
 
     row.innerHTML = `
-        <td>${trip.tripId}</td>
         <td>${trip.vehicle.name}</td>
         <td>${trip.name}</td>
         <td>${formattedStartTimestamp}</td>
@@ -71,8 +70,8 @@ async function createTripTableRow(trip) {
         menuOptions.classList.toggle('visible');
     });
 
-    row.children[6].appendChild(menuButton);
-    row.children[6].appendChild(menuOptions);
+    row.children[5].appendChild(menuButton);
+    row.children[5].appendChild(menuOptions);
 
     return row;
 }
