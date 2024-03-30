@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
     addTrackerButton.addEventListener('click', function () {
         addTracker();
     });
+
+    // Add an event listener to the logout button
+    document.getElementById('logoutButton').addEventListener('click', function () {
+        // Call the logout function from auth/logout.js
+        logout();
+    });
 });
 
 // Add a new tracker

@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Add an event listener to the logout button
+    document.getElementById('logoutButton').addEventListener('click', function () {
+        // Call the logout function from auth/logout.js
+        logout();
+    });
+
     const returnButton = document.getElementById('returnButton');
     returnButton.addEventListener('click', function () {
         window.location.href = "../../fleet/vehicle/vehicle.html";
