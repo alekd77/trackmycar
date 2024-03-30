@@ -59,7 +59,7 @@ async function createTrackerRow(tracker) {
     `;
 
     const trackerIcon = document.createElement('img');
-    trackerIcon.src = '/res/images/tracker.svg'
+    trackerIcon.src = '../../res/images/tracker.svg'
     trackerIcon.alt = 'Tracker Icon';
     trackerIcon.classList.add('tracker-icon');
     row.children[1].appendChild(trackerIcon);

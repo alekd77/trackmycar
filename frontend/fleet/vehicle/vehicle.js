@@ -64,7 +64,7 @@ async function createVehicleRow(vehicle) {
     `;
 
     const vehicleIcon = document.createElement('img');
-    vehicleIcon.src = '/res/images/car.svg'
+    vehicleIcon.src = '../../res/images/car.svg'
     const markerHexColor = await getMarkerHexColor(vehicle.vehicleId);
     vehicleIcon.style.backgroundColor = markerHexColor;
     vehicleIcon.alt = 'Car Icon';
