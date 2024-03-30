@@ -54,8 +54,7 @@ public class TripService {
             throw new TripRegistrationException("The assignment already has an active trip");
         }
 
-        String date = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-        String tempName = "New Trip " + date;
+        String tempName = "New Trip";
 
         int tempNameCounter = 0;
         int maxAttempts = 1000;
