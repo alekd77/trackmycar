@@ -133,6 +133,13 @@ public class AuthenticationService {
                     tracker1.getTrackerId()
             );
 
+            assignmentService.updateLastPosition(
+                    assignment,
+                    LocalDateTime.parse("2024-03-13T14:44:09.123000"),
+                    52.198941,
+                    21.024080
+            );
+
             Trip trip1 = tripService.startNewTrip(assignment);
 
             tripService.addTripGeolocation(
